@@ -28,6 +28,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     'simple-django-todo-boo.herokuapp.com'
+    'localhost'
 ]
 
 
