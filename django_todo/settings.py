@@ -28,6 +28,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     'simple-django-todo-boo.herokuapp.com',
+    os.environ.get('HOSTNAME'),
     'localhost'
 ]
 
@@ -87,7 +88,9 @@ DATABASES = {
 }
 """
 
-DATABASES = { 'default' : dj_database_url.parse("postgres://lkbtftcdkrccge:c9fdc9d37b91f6dd51232a9a7127f33942723c69b1bd0f15d865349f73a3110b@ec2-54-247-125-38.eu-west-1.compute.amazonaws.com:5432/dc62av6v7lcisb") }
+DATABASES = { 'default' : dj_database_url.parse("os.environ.get('DATABASE_URL')) }
+
+# postgres://lkbtftcdkrccge:c9fdc9d37b91f6dd51232a9a7127f33942723c69b1bd0f15d865349f73a3110b@ec2-54-247-125-38.eu-west-1.compute.amazonaws.com:5432/dc62av6v7lcisb
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
