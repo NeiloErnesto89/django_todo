@@ -13,6 +13,11 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 import os
 import dj_database_url
 
+if os.environ.get('DEVELOPMENT'):
+    development = True
+else:
+    development = False 
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -24,7 +29,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '!0uf6ijtjy^pgb-p@g406=5$qx3_$7_@a-ckhp(iofwb=f$91#'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = development  #  formermly True
 
 ALLOWED_HOSTS = [
     'simple-django-todo-boo.herokuapp.com',
@@ -79,16 +84,16 @@ WSGI_APPLICATION = 'django_todo.wsgi.application'
 # Database - New dj
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
-"""
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+if development:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
     }
-}
-"""
-DATABASES = {
-    'default': dj_database_url.parse(os.environ.get("DATABASE_URL", "sqlite:///db.sqlite3"))
+else:
+    DATABASES = {
+    'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))  # , "sqlite:///db.sqlite3"
 }
 
 # postgres://lkbtftcdkrccge:c9fdc9d37b91f6dd51232a9a7127f33942723c69b1bd0f15d865349f73a3110b@ec2-54-247-125-38.eu-west-1.compute.amazonaws.com:5432/dc62av6v7lcisb
